@@ -16,11 +16,21 @@ int main(){
     std::vector<GameCard> cards;
     GameCard c1 = GameCard(GAME_CARD_TYPE_FESTIVAL);
     GameCard c2 = GameCard(GAME_CARD_TYPE_COPPER);
+    GameCard c3 = GameCard(GAME_CARD_TYPE_SMITHY);
+    GameCard c4 = GameCard(GAME_CARD_TYPE_VILLAGE);
     
     cards.emplace_back(c1);
     cards.emplace_back(c2);
-    //DiscardPile dp = DiscardPile(cards);
+    DiscardPile dp = DiscardPile();
+    dp.addCard(c1);
+    dp.addCard(c2);
+    dp.addCard(c3);
+    dp.addCard(c4);
 
-    std::cout<<"Hello\n"<<cards[0].getName()<<cards[1].getName();
+    std::cout<<"Hello\n"<<dp.getTopCard().getName();
+    dp.my_shuffle();
+    std::cout<<"Hello\n"<<dp.getTopCard().getName();
+    dp.my_shuffle();
+    std::cout<<"Hello\n"<<dp.getTopCard().getName();
     return 0;
 }
