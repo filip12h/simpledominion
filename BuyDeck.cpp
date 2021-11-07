@@ -1,4 +1,5 @@
 #include "GameCard.cpp"
+#include <optional>
 
 class BuyDeck {
     private:
@@ -9,9 +10,10 @@ class BuyDeck {
             cardCount = 10;
             cardType = _cardType;
         }
-        GameCardType buy(){
+        GameCard buy(){
+            GameCard card = GameCard(cardType);
             cardCount--;
-            return cardType;
+            return card;
         }
         int deckSize(){
             return cardCount;

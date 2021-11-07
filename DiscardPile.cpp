@@ -3,14 +3,17 @@
 #include <random>
 #include <chrono>
 #include <optional>
-#include "GameCard.cpp"
+#include "BuyDeck.cpp"
 
 class DiscardPile {
     private:
         std::vector<GameCard> cards;
     public:
         DiscardPile(){}
-        GameCard getTopCard(){if (cards.size()>0) return cards[cards.size()-1];};
+        GameCard getTopCard(){
+            //if (cards.size()>0) 
+            return cards[cards.size()-1];
+        };
         void addCard(GameCard c){
             cards.emplace_back(c);
         }

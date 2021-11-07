@@ -2,6 +2,7 @@
 //#include "GameCard.cpp"
 #include <vector>
 #include <iostream>
+//#include "BuyDeck.cpp"
 
 static const GameCardType GAME_CARD_TYPE_MARKET = {1, 1, 1, 1, 0, 5, true, "Market", "+1 Action; +1 Buy; +1 Card; +1 Coin"};
 static const GameCardType GAME_CARD_TYPE_ESTATE = {0, 0, 0, 0, 1, 2, false, "Estate", "+1 Point"};
@@ -10,7 +11,6 @@ static const GameCardType GAME_CARD_TYPE_SMITHY = {0, 0, 3, 0, 0, 4, true, "Smit
 static const GameCardType GAME_CARD_TYPE_VILLAGE = {2, 0, 1, 0, 0, 3, true, "Village", "+2 Actions; +1 Card"};
 static const GameCardType GAME_CARD_TYPE_FESTIVAL = {2, 1, 0, 2, 0, 5, true, "Festival", "+2 Actions; +1 Buy; +2 Coins"};
 static const GameCardType GAME_CARD_TYPE_LABORATORY = {1, 0, 2, 0, 0, 5, true, "Laboratory", "+1 Action; +2 Cards"};
-
 
 int main(){
     std::vector<GameCard> cards;
@@ -26,6 +26,12 @@ int main(){
     dp.addCard(c2);
     dp.addCard(c3);
     dp.addCard(c4);
+
+    BuyDeck deck0 = BuyDeck(GAME_CARD_TYPE_COPPER);
+
+    std::cout<<deck0.deckSize()<<"\n";
+    deck0.buy();
+    std::cout<<deck0.deckSize()<<"\n";
 
     std::cout<<"Hello\n"<<dp.getTopCard().getName();
     dp.my_shuffle();
