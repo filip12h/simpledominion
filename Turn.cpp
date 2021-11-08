@@ -16,6 +16,11 @@ class DiscardPile {
             return cards[cards.size()-1];
         };
         std::vector<GameCard> getCards() {return cards;}
+
+        void addCard(GameCard c){
+            cards.emplace_back(c);
+        }
+
         void addCards(std::vector<GameCard> c){
             cards.insert(cards.end(), c.begin(), c.end());
         }
@@ -126,7 +131,9 @@ class Turn {
         Play play;
         DiscardPile discardPile;
         Deck deck;
-        Turn(Hand &h, Play &p, DiscardPile &dp, Deck &d){
+        std::vector<int> buyDecksCounter;
+        Turn(){}
+        Turn(Hand &h, Play &p, DiscardPile &dp, Deck &d, std::vector<int> &bd){
             turnStatus.actions = 1;
             turnStatus.buys = 1;
             turnStatus.coins = 0;
@@ -134,6 +141,7 @@ class Turn {
             play = p;
             discardPile = dp;
             deck = d;
+            buyDecksCounter = bd;
         }
         void showTurnStatus(){
             std::cout<<"actions:"<<turnStatus.actions<<"\nbuys:"<<turnStatus.buys<<"\ncoins:"<<turnStatus.coins<<"\n";
@@ -153,13 +161,22 @@ class Turn {
             for (int i = 0; i < play.getCards().size(); i++)
                 std::cout<<i<<": "<<play.getCards()[i].getName()<<"\n";
         }
-        void showCardsInDeck(){
-            std::cout<<"in deck\n";
-            for (int i = 0; i < deck.getCards().size(); i++)
-                std::cout<<i<<": "<<deck.getCards()[i].getName()<<"\n";
-        }
+        // void showCardsInDeck(){
+        //     std::cout<<"in deck\n";
+        //     for (int i = 0; i < deck.getCards().size(); i++)
+        //         std::cout<<i<<": "<<deck.getCards()[i].getName()<<"\n";
+        // }
         void drawCards(int n){
             hand.draw(n, deck, discardPile);
+        }
+        void newTurn(){
+            while (hand.getCards().size())
+                hand.play(0);
+            turnStatus.actions = 1;
+            turnStatus.buys = 1;
+            turnStatus.coins = 0;
+            discardPlayedCards();
+            drawCards(5);
         }
         void discardPlayedCards(){
             std::vector<GameCard> playedCards = play.throwAll();
@@ -176,9 +193,17 @@ class Turn {
                     turnStatus.actions--;
                 hand.draw(playedCard.evaluate(turnStatus), deck, discardPile);
                 play.putIntoPlayArea(playedCard);
-                showCardsInHand();
-                showTurnStatus();
+                // showCardsInHand();
+                // showTurnStatus();
             }
             return playedCard;
+        }
+        GameCard buyCard(GameCardType cardType){
+            if (turnStatus.coins>= cardType.cost && buyDecksCounter[cardType.id]>0){
+                turnStatus.coins -= cardType.cost;
+                turnStatus.buys--;
+                discardPile.addCard(GameCard(cardType));
+            }
+            return GameCard(cardType);
         }
 };
