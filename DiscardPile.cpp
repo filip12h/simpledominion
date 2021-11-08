@@ -3,7 +3,7 @@
 #include <random>
 #include <chrono>
 #include <optional>
-#include "BuyDeck.cpp"
+#include "EndGameStrategy.cpp"
 
 class DiscardPile {
     private:

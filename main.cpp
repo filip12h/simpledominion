@@ -6,7 +6,11 @@
 
 static const GameCardType GAME_CARD_TYPE_MARKET = {1, 1, 1, 1, 0, 5, true, "Market", "+1 Action; +1 Buy; +1 Card; +1 Coin"};
 static const GameCardType GAME_CARD_TYPE_ESTATE = {0, 0, 0, 0, 1, 2, false, "Estate", "+1 Point"};
+static const GameCardType GAME_CARD_TYPE_DUCHY = {0, 0, 0, 0, 3, 5, false, "Duchy", "+3 Points"};
+static const GameCardType GAME_CARD_TYPE_PROVINCE = {0, 0, 0, 0, 6, 8, false, "Province", "+6 Points"};
 static const GameCardType GAME_CARD_TYPE_COPPER = {0, 0, 0, 1, 0, 0, false, "Copper", "+1 Coin"};
+static const GameCardType GAME_CARD_TYPE_SILVER = {0, 0, 0, 2, 0, 3, false, "Silver", "+2 Coins"};
+static const GameCardType GAME_CARD_TYPE_GOLD = {0, 0, 0, 3, 0, 6, false, "Gold", "+3 Coins"};
 static const GameCardType GAME_CARD_TYPE_SMITHY = {0, 0, 3, 0, 0, 4, true, "Smithy", "+3 Cards"};
 static const GameCardType GAME_CARD_TYPE_VILLAGE = {2, 0, 1, 0, 0, 3, true, "Village", "+2 Actions; +1 Card"};
 static const GameCardType GAME_CARD_TYPE_FESTIVAL = {2, 1, 0, 2, 0, 5, true, "Festival", "+2 Actions; +1 Buy; +2 Coins"};
@@ -26,6 +30,8 @@ int main(){
     dp.addCard(c2);
     dp.addCard(c3);
     dp.addCard(c4);
+
+    EndGameStrategy endGameStrategy = EndGameStrategy();
 
     BuyDeck deck0 = BuyDeck(GAME_CARD_TYPE_COPPER);
 
