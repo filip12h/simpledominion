@@ -27,4 +27,7 @@ class DiscardPile {
             std::shuffle(cards.begin(), cards.end(), std::default_random_engine(seed));
             return cards;
         }
+        void emptyDiscardPile(){
+            cards.clear();
+        }
 };
