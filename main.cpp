@@ -30,7 +30,6 @@ void printCards(std::vector<GameCard> cards){
 class Game {
     private:
         EndGameStrategy endGameStrategy;
-        TurnStatus turnStatus;
         Turn turn;
         SimpleDominionInterface simpleDominionI;
         Hand hand;
@@ -60,7 +59,6 @@ class Game {
             deck = Deck(discardPile);
             turn = Turn(hand, play, discardPile, deck, buyDecksCounter);
             simpleDominionI = SimpleDominionInterface();
-            turnStatus = TurnStatus();
             endGameStrategy = EndGameStrategy();
             turnCounter = 0;
         }
@@ -69,11 +67,11 @@ class Game {
             {
                 turn.newTurn();
                 std::cout<<"turn:"<<turnCounter<<"\n";
-                while (turnStatus.actions || turnStatus.buys)
+                while (true)
                 {
                     turn.showCardsInHand();
                     turn.showTurnStatus();
-                    std::cout<<"to buy card, write 'buy', to play card, write 'play' where x is number of card in hand\n";
+                    std::cout<<"write 'buy', 'play', 'playall' or 'end'\n";
                     string answer;
                     std::cin>>answer;
                     if (answer=="buy"){
@@ -93,7 +91,13 @@ class Game {
                         turn.playCard(std::stoi(answer));
                     } else if (answer=="end")
                         break;
+                    if (!(turn.hand.isThereActionCard() && turn.turnStatus.actions) && !turn.turnStatus.buys)
+                    {
+                        std::cout<<"next moves not possible\n";
+                        break;
+                    }
                 }
+
                 turnCounter++;
                 
             }

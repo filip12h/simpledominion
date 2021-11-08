@@ -117,6 +117,11 @@ class Hand {
         bool isActionCard(int index){
             return cards[index].isActionCard();
         }
+        bool isThereActionCard(){
+            for (int i = 0; i < cards.size(); i++)
+                if (cards[i].isActionCard()) return true;
+            return false;
+        }
         GameCard play(int index){
             GameCard cardToPlay = cards[index];
             cards.erase(cards.begin()+index);
