@@ -1,4 +1,4 @@
-#include "Deck.cpp"
+#include "DiscardPile.cpp"
 //#include "GameCard.cpp"
 #include <vector>
 #include <iostream>
@@ -22,6 +22,37 @@ int main(){
     EndGameStrategy endGameStrategy = EndGameStrategy();
 
     BuyDeck deck0 = BuyDeck(GAME_CARD_TYPE_COPPER);
+
+    Deck playersDeck = Deck(dp);
+
+    std::vector<GameCard> hand =  playersDeck.draw(5);
+    for (int i = 0; i < hand.size(); i++)
+    {
+        std::cout<<hand[i].getName()<<",";
+    }
+    std::cout<<",";
+
+    hand =  playersDeck.draw(9);
+    for (int i = 0; i < hand.size(); i++)
+    {
+        std::cout<<hand[i].getName()<<",";
+    }
+    /*
+    std::cout<<",";
+    hand =  playersDeck.draw(6);
+    for (int i = 0; i < hand.size(); i++)
+    {
+        std::cout<<hand[i].getName()<<",";
+    }
+    std::cout<<",";
+    hand =  playersDeck.draw(6);
+    for (int i = 0; i < hand.size(); i++)
+    {
+        std::cout<<hand[i].getName()<<",";
+    }
+    std::cout<<",";
+*/
+    
 
     std::cout<<deck0.deckSize()<<"\n";
     deck0.buy();
