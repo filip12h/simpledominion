@@ -1,4 +1,4 @@
-#include "Hand.cpp"
+#include "Turn.cpp"
 //#include "GameCard.cpp"
 #include <vector>
 #include <iostream>
@@ -17,10 +17,6 @@ int main(){
     GameCard c4 = GameCard(GAME_CARD_TYPE_VILLAGE);
     
     DiscardPile dp = DiscardPile();
-    dp.addCard(c1);
-    dp.addCard(c2);
-    dp.addCard(c3);
-    dp.addCard(c4);
 
     EndGameStrategy endGameStrategy = EndGameStrategy();
 
@@ -28,51 +24,61 @@ int main(){
 
     Deck playersDeck = Deck(dp);
 
-    Hand cardsInHand = Hand();
+    Hand hand = Hand();
     Play play = Play();
-    Turn turn = Turn(cardsInHand, play, dp, playersDeck);
 
-    cardsInHand.draw(5, playersDeck);
+
+    hand.draw(5, playersDeck, dp);
+    //std::cout<<"in hand";
+
+    
+    //printCards(hand.getCards());
+    
+    Turn turn = Turn(hand, play, dp, playersDeck);
+    
+    turn.showCardsInHand();
+    turn.showTurnStatus();
+    turn.playCard(0);
+
+    turn.discardPlayedCards();
+
+    turn.playCard(2);
+
+    turn.discardPlayedCards();
+    turn.drawCards(5);
+
+    turn.playCard(2);
+    turn.playCard(2);
+    turn.playCard(2);
+    turn.playCard(2);
+    turn.discardPlayedCards();
+
+    turn.drawCards(0);
+
+
+    turn.showCardsInPlay();
+    turn.showCardsInHand();
+    turn.showCardsInDiscard();
+    turn.showCardsInDeck();
+    
+
+    
+
+    /*std::cout<<"players deck";
+    printCards(playersDeck.getCards());
+
+    hand.draw(5, playersDeck);
     std::cout<<"in hand";
-    printCards(cardsInHand.getCards());
+    printCards(hand.getCards());
+
     std::cout<<"players deck";
     printCards(playersDeck.getCards());
 
-    cardsInHand.draw(5, playersDeck);
-    std::cout<<"in hand";
-    printCards(cardsInHand.getCards());
-
-    std::cout<<"players deck";
-    printCards(playersDeck.getCards());
-    //printCards(dp.getCards());
-    cardsInHand.draw(4, playersDeck);
+    hand.draw(4, playersDeck);
     std::cout<<"players deck";
     printCards(playersDeck.getCards());
     std::cout<<"in hand";
-    printCards(cardsInHand.getCards());
+    printCards(hand.getCards());*/
 
-/*
-    std::vector<GameCard> hand =  playersDeck.draw(5);
-    for (int i = 0; i < hand.size(); i++)
-    {
-        std::cout<<hand[i].getName()<<",";
-    }
-    std::cout<<",";
-
-    hand =  playersDeck.draw(9);
-    for (int i = 0; i < hand.size(); i++)
-    {
-        std::cout<<hand[i].getName()<<",";
-    }
-
-    std::cout<<deck0.deckSize()<<"\n";
-    deck0.buy();
-    std::cout<<deck0.deckSize()<<"\n";
-
-    std::cout<<"Hello\n"<<dp.getTopCard().getName();
-    dp.my_shuffle();
-    std::cout<<"Hello\n"<<dp.getTopCard().getName();
-    dp.my_shuffle();
-    std::cout<<"Hello\n"<<dp.getTopCard().getName();*/
     return 0;
 }
