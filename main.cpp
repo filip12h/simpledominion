@@ -37,6 +37,15 @@ class Game {
         std::vector<int> buyDecksCounter;
         std::vector<GameCardType> cardTypes;
         int turnCounter;
+        void showBuyDecks(){
+            for (int i = 0; i < buyDecksCounter.size(); i++)
+            {
+                if (turn.turnStatus.coins >= cardTypes[i].cost){
+                    std::cout<<"id:"<<i<<", "<<cardTypes[i].name<<": "<<cardTypes[i].description<<". Cost:"<<cardTypes[i].cost<<". Reamins in deck: "<<buyDecksCounter[i]<<"\n";
+                }
+            }
+            
+        };
     public:
         Game(){
             cardTypes.emplace_back(GAME_CARD_TYPE_ESTATE);
@@ -55,7 +64,7 @@ class Game {
             discardPile = DiscardPile();
             play = Play();
             deck = Deck(discardPile);
-            turn = Turn(hand, play, discardPile, deck, buyDecksCounter);
+            turn = Turn(hand, play, discardPile, deck);
             simpleDominionI = SimpleDominionInterface();
             endGameStrategy = EndGameStrategy();
             turnCounter = 0;
@@ -63,6 +72,7 @@ class Game {
         void playGame(){
             while (!endGameStrategy.isGameOver())
             {
+                //system("clear");
                 turn.newTurn();
                 std::cout<<"turn:"<<turnCounter<<"\n";
                 while (true)
@@ -74,8 +84,9 @@ class Game {
                     std::cin>>answer;
                     if (answer=="buy"){
                         std::cout<<"write id of card\n";
+                        showBuyDecks();
                         std::cin>>answer;
-                        turn.buyCard(cardTypes[std::stoi(answer)]);
+                        turn.buyCard(cardTypes[std::stoi(answer)], buyDecksCounter);
                     } else if (answer=="playall"){
                         while (turn.hand.getCards().size())
                             turn.playCard(0);

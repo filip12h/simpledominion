@@ -145,9 +145,8 @@ class Turn {
         Play play;
         DiscardPile discardPile;
         Deck deck;
-        std::vector<int> buyDecksCounter;
         Turn(){}
-        Turn(Hand &h, Play &p, DiscardPile &dp, Deck &d, std::vector<int> &bd){
+        Turn(Hand &h, Play &p, DiscardPile &dp, Deck &d){
             turnStatus.actions = 1;
             turnStatus.buys = 1;
             turnStatus.coins = 0;
@@ -155,7 +154,6 @@ class Turn {
             play = p;
             discardPile = dp;
             deck = d;
-            buyDecksCounter = bd;
         }
         void showTurnStatus(){
             std::cout<<"actions:"<<turnStatus.actions<<"\nbuys:"<<turnStatus.buys<<"\ncoins:"<<turnStatus.coins<<"\n";
@@ -212,11 +210,12 @@ class Turn {
             }
             return playedCard;
         }
-        GameCard buyCard(GameCardType cardType){
+        GameCard buyCard(GameCardType cardType, std::vector<int> &buyDecksCounter){
             if (turnStatus.coins>= cardType.cost && buyDecksCounter[cardType.id]>0){
                 turnStatus.coins -= cardType.cost;
                 turnStatus.buys--;
                 discardPile.addCard(GameCard(cardType));
+                buyDecksCounter[cardType.id]--;
             }
             return GameCard(cardType);
         }
