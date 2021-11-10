@@ -1,10 +1,8 @@
 #include "Turn.cpp"
 #include "SimpleDominionInterface.cpp"
-//#include "GameCard.cpp"
 #include <string>
 #include <vector>
 #include <iostream>
-//#include "BuyDeck.cpp"
 
 using namespace std;
 
@@ -76,10 +74,6 @@ class Game {
                     std::cin>>answer;
                     if (answer=="buy"){
                         std::cout<<"write id of card\n";
-                        // for (int i = 0; i < buyDecksCounter.size(); i++)
-                        // {
-                        //     std::cout<<i<<":"<<cardTypes[i].name<<" : "<<cardTypes[i].description<<". "<<buyDecksCounter[i]<<" left.\n";
-                        // }
                         std::cin>>answer;
                         turn.buyCard(cardTypes[std::stoi(answer)]);
                     } else if (answer=="playall"){
@@ -106,76 +100,8 @@ class Game {
 };
 
 int main(){
-    // GameCard c1 = GameCard(GAME_CARD_TYPE_FESTIVAL);
-    // GameCard c2 = GameCard(GAME_CARD_TYPE_COPPER);
-    // GameCard c3 = GameCard(GAME_CARD_TYPE_SMITHY);
-    // GameCard c4 = GameCard(GAME_CARD_TYPE_VILLAGE);
-    
-    // DiscardPile dp = DiscardPile();
-
-    // EndGameStrategy endGameStrategy = EndGameStrategy();
-
-    // BuyDeck deck0 = BuyDeck(GAME_CARD_TYPE_COPPER);
-
-    // Deck playersDeck = Deck(dp);
-
-    // Hand hand = Hand();
-    // Play play = Play();
-
-
-    // hand.draw(5, playersDeck, dp);
     Game game = Game();
     game.playGame();
-    //std::cout<<"in hand";
-
     
-    //printCards(hand.getCards());
-    
-    //Turn turn = Turn(hand, play, dp, playersDeck);
-    
-    // turn.showCardsInHand();
-    // turn.showTurnStatus();
-    // turn.playCard(0);
-
-    // turn.discardPlayedCards();
-
-    // turn.playCard(2);
-
-    // turn.discardPlayedCards();
-    // turn.drawCards(5);
-
-    // turn.playCard(2);
-    // turn.playCard(2);
-    // turn.playCard(2);
-    // turn.playCard(2);
-    // turn.discardPlayedCards();
-
-    // turn.drawCards(0);
-
-
-    // turn.showCardsInPlay();
-    // turn.showCardsInHand();
-    // turn.showCardsInDiscard();
-    // turn.showCardsInDeck();
-    
-
-    
-
-    /*std::cout<<"players deck";
-    printCards(playersDeck.getCards());
-
-    hand.draw(5, playersDeck);
-    std::cout<<"in hand";
-    printCards(hand.getCards());
-
-    std::cout<<"players deck";
-    printCards(playersDeck.getCards());
-
-    hand.draw(4, playersDeck);
-    std::cout<<"players deck";
-    printCards(playersDeck.getCards());
-    std::cout<<"in hand";
-    printCards(hand.getCards());*/
-
     return 0;
 }

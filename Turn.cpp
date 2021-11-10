@@ -127,6 +127,15 @@ class Hand {
             cards.erase(cards.begin()+index);
             return cardToPlay;
         }
+        std::vector<GameCard> discardAll(){
+            std::vector<GameCard> cardsToDiscard;
+            while(cards.size())
+            {
+                cardsToDiscard.emplace_back(cards[0]);
+                cards.erase(cards.begin());
+            }
+            return cardsToDiscard;
+        }
 };
 
 class Turn {
@@ -176,7 +185,7 @@ class Turn {
         }
         void newTurn(){
             while (hand.getCards().size())
-                hand.play(0);
+                discardPile.addCards(hand.discardAll());
             turnStatus.actions = 1;
             turnStatus.buys = 1;
             turnStatus.coins = 0;
