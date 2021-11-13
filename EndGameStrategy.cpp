@@ -14,11 +14,11 @@ class AtLeastNEmptyDecks{
             if (numOfEmptyDecks>=emptyDecksLimit) return true;
             return false;
         }
-        int increaseNumOfEmptyDecks(int n){
+        bool increaseNumOfEmptyDecks(){
             numOfEmptyDecks++;
-            return numOfEmptyDecks;
+            return checkCriteria();
         }
-        int getNumOfEmptyDecks(int n){
+        int getNumOfEmptyDecks(){
             return numOfEmptyDecks;
         }
 };
@@ -36,11 +36,10 @@ class NoProvincesLeft{
                 return true;
             return false;
         }
-        int decreaseNumOfProvinces(int n){
+        void decreaseNumOfProvinces(){
             counter--;
-            return n;
         }
-        int getNumOfProvinces(int n){
+        int getNumOfProvinces(){
             return counter;
         }
 };
@@ -53,6 +52,14 @@ class EndGameStrategy {
         EndGameStrategy(){
             atLeastNEmptyDecks = AtLeastNEmptyDecks(3);
             noProvincesLeft = NoProvincesLeft(12);
+        }
+        bool emptiedDeck(){
+            atLeastNEmptyDecks.increaseNumOfEmptyDecks();
+            return atLeastNEmptyDecks.checkCriteria();
+        }
+        bool decreaseProvinces(){
+            noProvincesLeft.decreaseNumOfProvinces();
+            return noProvincesLeft.checkCriteria();
         }
         bool isGameOver(){
             return atLeastNEmptyDecks.checkCriteria() || noProvincesLeft.checkCriteria();

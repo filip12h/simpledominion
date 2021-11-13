@@ -114,9 +114,6 @@ class Hand {
             cards.insert(cards.end(), appendCards.begin(), appendCards.end());
             return cards;
         }
-        bool isActionCard(int index){
-            return cards[index].isActionCard();
-        }
         bool isThereActionCard(){
             for (int i = 0; i < cards.size(); i++)
                 if (cards[i].isActionCard()) return true;
@@ -197,11 +194,11 @@ class Turn {
         }
         GameCard playCard(int index){
             GameCard playedCard = hand.play(index);
-            if (hand.isActionCard(index) && turnStatus.actions == 0){ 
-                std::cout<<"no more actions left";
+            if (playedCard.isActionCard() && turnStatus.actions == 0){ 
+                std::cout<<"no more actions left\n";
             } else {
                 std::cout<<"played card:"<<playedCard.getName()<<"\n";
-                if (hand.isActionCard(index))
+                if (playedCard.isActionCard())
                     turnStatus.actions--;
                 hand.draw(playedCard.evaluate(turnStatus), deck, discardPile);
                 play.putIntoPlayArea(playedCard);
@@ -210,13 +207,14 @@ class Turn {
             }
             return playedCard;
         }
-        GameCard buyCard(GameCardType cardType, std::vector<int> &buyDecksCounter){
+        bool buyCard(GameCardType cardType, std::vector<int> &buyDecksCounter){
             if (turnStatus.coins>= cardType.cost && buyDecksCounter[cardType.id]>0){
                 turnStatus.coins -= cardType.cost;
                 turnStatus.buys--;
                 discardPile.addCard(GameCard(cardType));
                 buyDecksCounter[cardType.id]--;
+                return true;
             }
-            return GameCard(cardType);
+            return false;
         }
 };

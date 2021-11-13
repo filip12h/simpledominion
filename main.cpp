@@ -1,6 +1,6 @@
 #include "Turn.cpp"
 #include "SimpleDominionInterface.cpp"
-#include <string>
+#include <string.h>
 #include <vector>
 #include <iostream>
 
@@ -59,7 +59,8 @@ class Game {
             cardTypes.emplace_back(GAME_CARD_TYPE_VILLAGE);
             cardTypes.emplace_back(GAME_CARD_TYPE_FESTIVAL);
             cardTypes.emplace_back(GAME_CARD_TYPE_LABORATORY);
-            buyDecksCounter.insert(buyDecksCounter.end(), {24, 12, 12, 60, 40, 30, 10, 10, 10, 10, 10});
+            //buyDecksCounter.insert(buyDecksCounter.end(), {24, 12, 12, 60, 40, 30, 10, 10, 10, 10, 10});
+            buyDecksCounter.insert(buyDecksCounter.end(), {2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2});
             hand = Hand();
             discardPile = DiscardPile();
             play = Play();
@@ -72,7 +73,6 @@ class Game {
         void playGame(){
             while (!endGameStrategy.isGameOver())
             {
-                //system("clear");
                 turn.newTurn();
                 std::cout<<"turn:"<<turnCounter<<"\n";
                 while (true)
@@ -80,24 +80,37 @@ class Game {
                     turn.showCardsInHand();
                     turn.showTurnStatus();
                     std::cout<<"write 'buy', 'play', 'playall' or 'end'\n";
-                    string answer;
+                    char *answer = new char[30];
                     std::cin>>answer;
-                    if (answer=="buy"){
+                    if (!strcmp(answer,"buy")){
                         std::cout<<"write id of card\n";
                         showBuyDecks();
                         std::cin>>answer;
-                        turn.buyCard(cardTypes[std::stoi(answer)], buyDecksCounter);
-                    } else if (answer=="playall"){
-                        while (turn.hand.getCards().size())
-                            turn.playCard(0);
-                    } else if (answer=="play"){
+                        char *end;
+                        strtol(answer, &end, 10);
+                        if (end != answer && *end == '\0'){
+                            int index = std::stoi(answer)%11;
+                            if (turn.buyCard(cardTypes[index], buyDecksCounter)){
+                                if (answer=="2")
+                                    if (endGameStrategy.decreaseProvinces()) break;
+                                if (buyDecksCounter[std::stoi(answer)]==0)
+                                    if (endGameStrategy.emptiedDeck()) break;
+                            } else std::cout<<"couldn't perform buy action. Try again.\n";
+                        } else std::cout<<"couldn't perform buy action. Try again.\n";
+                    } else if (!strcmp(answer,"playall")){
+                        for (int i = turn.hand.getCards().size()-1; i>=0;i--)
+                            turn.playCard(i);
+                    } else if (!strcmp(answer,"play")){
                         std::cout<<"write id of card\n";
                         std::cin>>answer;
                         turn.playCard(std::stoi(answer));
-                    } else if (answer=="end")
+                    } else if (!strcmp(answer,"end")){
+                        system("clear");
                         break;
+                    }
                     if (!(turn.hand.isThereActionCard() && turn.turnStatus.actions) && !turn.turnStatus.buys)
                     {
+                        system("clear");
                         std::cout<<"next moves not possible\n";
                         break;
                     }
