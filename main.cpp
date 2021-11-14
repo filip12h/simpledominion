@@ -25,6 +25,8 @@ void printCards(std::vector<GameCard> cards){
 }
 
 
+
+
 class Game {
     private:
         EndGameStrategy endGameStrategy;
@@ -46,6 +48,7 @@ class Game {
             }
             
         };
+        
     public:
         Game(){
             cardTypes.emplace_back(GAME_CARD_TYPE_ESTATE);
@@ -60,7 +63,7 @@ class Game {
             cardTypes.emplace_back(GAME_CARD_TYPE_FESTIVAL);
             cardTypes.emplace_back(GAME_CARD_TYPE_LABORATORY);
             //buyDecksCounter.insert(buyDecksCounter.end(), {24, 12, 12, 60, 40, 30, 10, 10, 10, 10, 10});
-            buyDecksCounter.insert(buyDecksCounter.end(), {2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2});
+            buyDecksCounter.insert(buyDecksCounter.end(), {1,1,1,1,1,1,1,1,1,1,1});
             hand = Hand();
             discardPile = DiscardPile();
             play = Play();
@@ -74,6 +77,7 @@ class Game {
             while (!endGameStrategy.isGameOver())
             {
                 turn.newTurn();
+                turnCounter++;
                 std::cout<<"turn:"<<turnCounter<<"\n";
                 while (true)
                 {
@@ -116,11 +120,11 @@ class Game {
                     }
                 }
 
-                turnCounter++;
                 
             }
-            
-        }    
+            //std::cout<<countDeckPoints();            
+            std::cout<<"Your Game is Over!\nYou've got "<<turn.getTotalPoints()<<" points and spent "<<turnCounter<<" turns of playing.\n";            
+        }
 };
 
 int main(){

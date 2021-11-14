@@ -136,6 +136,16 @@ class Hand {
 };
 
 class Turn {
+    private:
+        template<typename T>
+        int countPoints(T t){
+            int counter = 0;
+            std::vector<GameCard> cards = t.getCards();
+            for (int i = 0; i < cards.size(); i++){
+                counter += cards[i].getPoints();
+            }
+            return counter;
+        }
     public:
         TurnStatus turnStatus;
         Hand hand;
@@ -151,6 +161,9 @@ class Turn {
             play = p;
             discardPile = dp;
             deck = d;
+        }
+        int getTotalPoints(){
+            return countPoints(hand)+countPoints(play)+countPoints(discardPile)+countPoints(deck);
         }
         void showTurnStatus(){
             std::cout<<"actions:"<<turnStatus.actions<<"\nbuys:"<<turnStatus.buys<<"\ncoins:"<<turnStatus.coins<<"\n";

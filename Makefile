@@ -1,5 +1,5 @@
 main: main.o
-	g++ -o main main.o
+	g++ -std=c++17 -o main main.o
 
 main.o: main.cpp
-	g++ -c main.cpp
+	g++ -std=c++17 -c main.cpp
