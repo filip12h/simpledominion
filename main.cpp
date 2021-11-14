@@ -58,8 +58,8 @@ class Game {
             cardTypes.emplace_back(GAME_CARD_TYPE_VILLAGE);
             cardTypes.emplace_back(GAME_CARD_TYPE_FESTIVAL);
             cardTypes.emplace_back(GAME_CARD_TYPE_LABORATORY);
-            //buyDecksCounter.insert(buyDecksCounter.end(), {24, 12, 12, 60, 40, 30, 10, 10, 10, 10, 10});
-            buyDecksCounter.insert(buyDecksCounter.end(), {1,1,1,1,1,1,1,1,1,1,1});
+            buyDecksCounter.insert(buyDecksCounter.end(), {24, 12, 12, 60, 40, 30, 10, 10, 10, 10, 10});
+            //buyDecksCounter.insert(buyDecksCounter.end(), {1,1,1,1,1,1,1,1,1,1,1});
             turn = Turn();
             simpleDominionI = SimpleDominionInterface();
             endGameStrategy = EndGameStrategy();
