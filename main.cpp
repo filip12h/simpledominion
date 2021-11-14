@@ -73,9 +73,10 @@ class Game {
                 std::cout<<"turn:"<<turnCounter<<"\n";
                 while (true)
                 {
-                    turn.showCardsInHand();
+                    std::cout<<"cards in hand:\n";
+                    turn.showCards(turn.hand);
                     turn.showTurnStatus();
-                    std::cout<<"write 'buy', 'play', 'playall' or 'end'\n";
+                    std::cout<<"write 'buy', 'play', 'playall', 'discardpile' or 'end'\n";
                     char *answer = new char[30];
                     std::cin>>answer;
                     if (!strcmp(answer,"buy")){
@@ -100,6 +101,9 @@ class Game {
                         std::cout<<"write id of card\n";
                         std::cin>>answer;
                         turn.playCard(std::stoi(answer));
+                    } else if (!strcmp(answer,"discardpile")){
+                        std::cout<<"cards in discard pile:\n";
+                        turn.showCards(turn.discardPile);
                     } else if (!strcmp(answer,"end")){
                         system("clear");
                         break;

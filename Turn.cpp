@@ -167,26 +167,11 @@ class Turn {
         void showTurnStatus(){
             std::cout<<"actions:"<<turnStatus.actions<<"\nbuys:"<<turnStatus.buys<<"\ncoins:"<<turnStatus.coins<<"\n";
         }
-        void showCardsInHand(){
-            std::cout<<"in hand\n";
-            for (int i = 0; i < hand.getCards().size(); i++)
-                std::cout<<i<<": "<<hand.getCards()[i].getName()<<"\n";
+        template<class T>
+        void showCards(T pile){
+            for (int i = 0; i < pile.getCards().size(); i++)
+                std::cout<<i<<": "<<pile.getCards()[i].getName()<<"\n";
         }
-        void showCardsInDiscard(){
-            std::cout<<"in discard\n";
-            for (int i = 0; i < discardPile.getCards().size(); i++)
-                std::cout<<i<<": "<<discardPile.getCards()[i].getName()<<"\n";
-        }
-        void showCardsInPlay(){
-            std::cout<<"in play\n";
-            for (int i = 0; i < play.getCards().size(); i++)
-                std::cout<<i<<": "<<play.getCards()[i].getName()<<"\n";
-        }
-        // void showCardsInDeck(){
-        //     std::cout<<"in deck\n";
-        //     for (int i = 0; i < deck.getCards().size(); i++)
-        //         std::cout<<i<<": "<<deck.getCards()[i].getName()<<"\n";
-        // }
         void drawCards(int n){
             hand.draw(n, deck, discardPile);
         }
