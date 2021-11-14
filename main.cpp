@@ -32,10 +32,6 @@ class Game {
         EndGameStrategy endGameStrategy;
         Turn turn;
         SimpleDominionInterface simpleDominionI;
-        Hand hand;
-        DiscardPile discardPile;
-        Play play;
-        Deck deck;
         std::vector<int> buyDecksCounter;
         std::vector<GameCardType> cardTypes;
         int turnCounter;
@@ -64,11 +60,7 @@ class Game {
             cardTypes.emplace_back(GAME_CARD_TYPE_LABORATORY);
             //buyDecksCounter.insert(buyDecksCounter.end(), {24, 12, 12, 60, 40, 30, 10, 10, 10, 10, 10});
             buyDecksCounter.insert(buyDecksCounter.end(), {1,1,1,1,1,1,1,1,1,1,1});
-            hand = Hand();
-            discardPile = DiscardPile();
-            play = Play();
-            deck = Deck(discardPile);
-            turn = Turn(hand, play, discardPile, deck);
+            turn = Turn();
             simpleDominionI = SimpleDominionInterface();
             endGameStrategy = EndGameStrategy();
             turnCounter = 0;

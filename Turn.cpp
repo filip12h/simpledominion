@@ -152,15 +152,14 @@ class Turn {
         Play play;
         DiscardPile discardPile;
         Deck deck;
-        Turn(){}
-        Turn(Hand &h, Play &p, DiscardPile &dp, Deck &d){
+        Turn(){
             turnStatus.actions = 1;
             turnStatus.buys = 1;
             turnStatus.coins = 0;
-            hand = h;
-            play = p;
-            discardPile = dp;
-            deck = d;
+            hand = Hand();
+            play = Play();
+            discardPile = DiscardPile();
+            deck = Deck(discardPile);
         }
         int getTotalPoints(){
             return countPoints(hand)+countPoints(play)+countPoints(discardPile)+countPoints(deck);
